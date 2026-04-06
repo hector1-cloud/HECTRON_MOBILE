@@ -1,7 +1,5 @@
 name: Forja de HECTRON APK
 
-# Esto hace que el robot compile la APK cada vez que subas código nuevo
-# o cuando le des al botón manualmente (workflow_dispatch)
 on:
   push:
     branches: [ main ]
@@ -40,9 +38,10 @@ jobs:
 
       - name: ⚙️ COMPILANDO APK ⚙️
         run: flet build apk
-        
+
       - name: Entregando el Artefacto (Tu App)
         uses: actions/upload-artifact@v4
         with:
           name: HECTRON-V6-APK
           path: build/apk/**/*.apk
+          
