@@ -35,9 +35,12 @@ jobs:
       - name: Instalando Flet
         run: pip install -r requirements.txt
 
-      - name: ⚙️ COMPILANDO APK ⚙️
-        run: flet build apk --module-name src.main
+      - name: 🛠️ BYPASS TÁCTICO: Extrayendo el núcleo a la raíz
+        run: cp src/main.py ./main.py
 
+      - name: ⚙️ COMPILANDO APK ⚙️
+        run: flet build apk
+        
       - name: Entregando el Artefacto (Tu App)
         uses: actions/upload-artifact@v4
         with:
