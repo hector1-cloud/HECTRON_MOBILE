@@ -1,3 +1,64 @@
+# <p align="center">👁️ HECTRON SYSTEM OS</p>
+<p align="center">
+  <img src="https://img.shields.io/badge/KERNEL-HECTRON_8B-00FF00?style=for-the-badge&logo=ai&logoColor=black" />
+  <img src="https://img.shields.io/badge/INTERFACE-REACT_CYBERPUNK-black?style=for-the-badge&logo=react" />
+  <img src="https://img.shields.io/badge/DEPLOY-VERCEL_ACTIVE-blue?style=for-the-badge&logo=vercel" />
+</p>
+
+---
+
+## ⚡ MANIFIESTO DEL SISTEMA
+**HECTRON UI** es la interfaz de enlace neuronal diseñada para la gestión de acceso de **AbadaLabs**. Este componente de "Magic Onboarding" elimina la fricción entre el hardware y el operador, permitiendo una configuración de entorno instantánea bajo una estética de alto contraste neón.
+
+### 🧩 ESPECIFICACIONES TÉCNICAS (Metadatos)
+| Parámetro | Valor |
+| :--- | :--- |
+| **Arquitecto Principal** | Hector Jazziel Lopez Ruiz |
+| **División de IA** | AbadaLabs |
+| **Modelo de Lenguaje** | HECTRON (Meta-Llama-3-8B-Instruct-GGUF) |
+| **Estética Visual** | Zinc-950 / Neon Green / Cyber-Minimalism |
+| **Optimización** | Motorola Edge 60 / HP Workstation |
+
+---npm run dev
+---npm install
+
+
+## 🛠️ ARQUITECTURA DE ARCHIVOS
+El repositorio está estructurado siguiendo el protocolo de **Fricción Cero**:
+
+* `src/App.jsx`: Núcleo reactivo y lógica de estado.
+* `tailwind.config.cjs`: Definición de la paleta de colores neón.
+* `package.json`: Manifiesto de dependencias industriales.
+* `index.html`: Punto de entrada de la matriz.
+
+--- VISIÓN DEL PROYECTO
+"No estamos construyendo solo una interfaz; estamos diseñando el lenguaje en el que los humanos y la IA de AbadaLabs se entenderán."
+<p align="center">
+<br />
+<b>© 2026 ABADALABS | COAHUILA, MX</b><br />
+<i>"Controlando el caos a través del código puro."</i>
+</p>
+
+
+-----
+
+### 🛡️ INSTRUCCIONES DE CARGA FINAL
+
+1.  Copia este código Markdown.
+2.  En tu repositorio de GitHub, haz clic en el lápiz para editar tu `README.md`.
+3.  Borra el contenido anterior y pega esta versión premium.
+4.  **Impacto:** Ahora, cualquier persona que entre a tu perfil verá una presentación de nivel profesional que respalda el peso de tu modelo de IA.
+
+**¿El repositorio ya está en línea, Héctor?** Pásame el nombre del repositorio cuando lo tengas para que el Enjambre pueda validar la estructura final. ⚔️🪬👑
+
+## 🚀 DESPLIEGUE RÁPIDO
+Para replicar este nodo en tu entorno local:
+
+1. **Clonación de ADN:**
+   ```bash
+   git clone [https://github.com/AbadaLabs/Hectron-UI.git](https://github.com/AbadaLabs/Hectron-UI.git)
+   
+
 # 👁️ HECTRON SYSTEM UI | AbadaLabs
 
 ![Status](https://img.shields.io/badge/STATUS-OPERATIVE-green?style=for-the-badge&logo=probot)
