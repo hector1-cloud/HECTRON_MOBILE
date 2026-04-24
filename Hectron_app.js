@@ -1,6 +1,4 @@
-Hectron_app.js
-```jsx
-import React, { useState, useEffect } from 'react';
+import import, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Toggler from './components/Toggler';
 import Dashboard from './screens/Dashboard';
