@@ -1,64 +1,292 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Toggler from './components/Toggler';
+import Dashboard from './screens/Dashboard';
+import Login from './screens/Login';
+import Reportes from './screens/Reportes';
+import MonitoreoGnosis from './screens/MonitoreoGnosis';
 
-const SetupAbada = () => {
-  const [setupVisible, setSetupVisible] = useState(false);
-  const [userData, setUserData] = useState({ nombre: '', email: '', perfil: '' });
+function HectronApp() {
+  const [logged, setLogged] = useState(false);
+  const [sintonizado, setSintonizado] = useState(false);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setUserData({ ...userData, [name]: value });
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setLogged(true);
+    }
+  }, []);
+
+  const handleLogin = async (email, password) => {
+    try {
+      const response = await axios.post('/login', { email, password });
+      localStorage.setItem('token', response.data.token);
+      setLogged(true);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  const finalizarConfiguracion = () => {
-    console.log("🦾 [DATOS_CAPTURADOS]:", userData);
-    alert(`ACCESO_CONCEDIDO: ${userData.nombre}`);
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setLogged(false);
+  };
+
+  const handleSintonizar = () => {
+    setSintonizado(!sintonizado);
   };
 
   return (
-    <div className="min-h-screen bg-zinc-950 flex items-center justify-center p-4 font-sans">
-      <div className="w-full max-w-md bg-zinc-900 border border-green-500/30 p-8 rounded-xl shadow-[0_0_40px_rgba(34,197,94,0.15)]">
-        
-        <h1 className="text-2xl font-black text-green-500 tracking-widest mb-6 text-center italic">
-          HECTRON_SYSTEM_v1.0
-        </h1>
-
-        {!setupVisible ? (
-          <button
-            onClick={() => setSetupVisible(true)}
-            className="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-4 rounded-lg shadow-[0_0_15px_rgba(34,197,94,0.3)] transition-all duration-300 uppercase tracking-widest"
-          >
-            Inicializar Protocolo
-          </button>
-        ) : (
-          <div className="space-y-4 animate-fade-in">
-            <div className="space-y-1">
-              <label className="text-[10px] text-green-700 font-bold uppercase tracking-widest">ID_Credential</label>
-              <input
-                name="nombre"
-                placeholder="Nombre de Operador..."
-                className="w-full bg-zinc-800 border border-zinc-700 p-3 rounded text-green-400 placeholder-zinc-700 focus:border-green-500 outline-none transition-all"
-                onChange={handleInputChange}
-              />
+    <div className="flex h-screen justify-center items-center overflow-hidden">
+      {logged ? (
+        <div className="relative flex w-full items-center justify-between py-4">
+          <div className="hidden lg:block">
+            <img src="/hectron-logo.png" alt="Hectron logo" className="w-32" />
+          </div>
+          <div className="lg:hidden">
+            <Toggler
+              checked={sintonizado}
+              onChange={handleSintonizar}
+              label="Sintonizar"
+            />
+          </div>
+          <div className="hidden lg:flex">
+            <Toggler
+              checked={sintonizado}
+              onChange={handleSintonizar}
+              label="Sintonizar"
+              className="ml-auto"
+            />
+          </div>
+          <div className="lg:hidden">
+            <button
+              onClick={handleLogout}
+              className="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded"
+            >
+              Desconectar
+            </button>
+          </div>
+        </div>
+      ) : (
+        <Login onLogin={handleLogin} />
+      )}
+      {logged && (
+        <main className="flex-1 max-w-7xl mx-auto p-4">
+          <div className="flex w-full lg:h-screen">
+            <div className="w-24 lg:w-64 fixed top-24 hidden lg:block left-4 bg-white shadow-md rounded p-4">
+              <ul>
+                <li>
+                  <a
+                    href="#"
+                    className="flex justify-between items-center py-2 text-gray-600 hover:text-gray-900"
+                  >
+                    <span>Monitoreo de Gnosis</span>
+                    <span className="ml-2">
+                      <i className="fas fa-tachometer-alt" />
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="flex justify-between items-center py-2 text-gray-600 hover:text-gray-900"
+                  >
+                    <span>Configuración de alertas</span>
+                    <span className="ml-2">
+                      <i className="fas fa-bell" />
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="flex justify-between items-center py-2 text-gray-600 hover:text-gray-900"
+                  >
+                    <span>Acceso a reportes</span>
+                    <span className="ml-2">
+                      <i className="fas fa-file" />
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="flex justify-between items-center py-2 text-gray-600 hover:text-gray-900"
+                  >
+                    <span>Desplegar agentes y ejecutar tareas</span>
+                    <span className="ml-2">
+                      <i className="fas fa-robot" />
+                    </span>
+                  </a>
+                </li>
+              </ul>
             </div>
-            <div className="space-y-1">
-              <label className="text-[10px] text-green-700 font-bold uppercase tracking-widest">Secure_Link</label>
-              <input
-                name="email"
-                type="email"
-                placeholder="Enlace de correo..."
-                className="w-full bg-zinc-800 border border-zinc-700 p-3 rounded text-green-400 placeholder-zinc-700 focus:border-green-500 outline-none transition-all"
-                onChange={handleInputChange}
-              />
-            </div>
-            <div className="flex gap-3 mt-6">
-              <button onClick={() => setSetupVisible(false)} className="flex-1 bg-zinc-800 text-zinc-500 py-3 rounded font-bold hover:bg-zinc-700 transition-all">ABORTAR</button>
-              <button onClick={finalizarConfiguracion} className="flex-2 bg-green-600 hover:bg-green-500 text-white py-3 px-6 rounded font-bold shadow-[0_0_15px_rgba(34,197,94,0.3)] transition-all">EJECUTAR</button>
+            <div className="w-full lg:w-7xl mx-auto p-4">
+              {sintonizado && <Dashboard />}
+              {!sintonizado && (
+                <div className="text-center">
+                  <h2 className="text-2xl font-bold mb-4">Dashboard</h2>
+                  <p>Pulse el botón para sintonizar</p>
+                  <button
+                    onClick={handleSintonizar}
+                    className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded"
+                  >
+                    Sintonizar
+                  </button>
+                </div>
+              )}
+              {!logged && <Reportes />}
+              {logged && !sintonizado && (
+                <MonitoreoGnosis />
+              )}
             </div>
           </div>
-        )}
+        </main>
+      )}
+    </div>
+  );
+}
+
+export default HectronApp;
+```
+**Login.js**
+```jsx
+import React, { useState } from 'react';
+import axios from 'axios';
+
+const Login = ({ onLogin }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
+
+  const handleLogin = async () => {
+    if (!email || !password) {
+      return setError('Correo electrónico y contraseña son obligatorios');
+    }
+    try {
+      const response = await axios.post('/login', { email, password });
+      onLogin(email, password);
+    } catch (error) {
+      console.error(error);
+      setError('Error de autenticación');
+    }
+  };
+
+  return (
+    <div className="flex h-screen justify-center items-center overflow-hidden bg-gray-100">
+      <div className="max-w-md p-8 bg-white rounded-lg shadow-lg">
+        <h2 className="text-2xl font-bold mb-4">Inicio de sesión</h2>
+        {error && <p className="text-red-500 mb-4">{error}</p>}
+        <form>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+              Correo electrónico
+            </label>
+            <input
+              className="shadow appearance-none border rounded py-2 px-3 w-full justify-center items-center"
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+              Contraseña
+            </label>
+            <input
+              className="shadow appearance-none border rounded py-2 px-3 w-full justify-center items-center"
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded"
+            onClick={handleLogin}
+          >
+            Iniciar sesión
+          </button>
+        </form>
       </div>
     </div>
   );
 };
 
-export default SetupAbada;
+export default Login;
+```
+**Dashboard.js**
+```jsx
+import React from 'react';
+import axios from 'axios';
+
+const Dashboard = () => {
+  const [data, setData] = React.useState({});
+
+  React.useEffect(() => {
+    const fetchDashboardData = async () => {
+      try {
+        const response = await axios.get('/dashboard');
+        setData(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchDashboardData();
+  }, []);
+
+  return (
+    <div className="max-w-md p-8 bg-white rounded-lg shadow-lg">
+      <h2 className="text-2xl font-bold mb-4">Dashboard</h2>
+      <ul>
+        <li>
+          <span className="text-gray-700 text-sm font-bold mb-2">Monitoreo de Gnosis</span>
+          <span className="ml-2">{data.monitoreoGnosis}</span>
+        </li>
+        <li>
+          <span className="text-gray-700 text-sm font-bold mb-2">Configuración de alertas</span>
+          <span className="ml-2">{data.configuracionAlertas}</span>
+        </li>
+        <li>
+          <span className="text-gray-700 text-sm font-bold mb-2">Acceso a reportes</span>
+          <span className="ml-2">{data.accesoReportes}</span>
+        </li>
+      </ul>
+    </div>
+  );
+};
+
+export default Dashboard;
+```
+**Reportes.js**
+```jsx
+import React from 'react';
+
+const Reportes = () => {
+  return (
+    <div className="max-w-md p-8 bg-white rounded-lg shadow-lg">
+      <h2 className="text-2xl font-bold mb-4">Reportes</h2>
+      <p>Este es un lugar donde se podrán ver reportes de la aplicación.</p>
+    </div>
+  );
+};
+
+export default Reportes;
+```
+**MonitoreoGnosis.js**
+```jsx
+import React from 'react';
+
+const MonitoreoGnosis = () => {
+  return (
+    <div className="max-w-md p-8 bg-white rounded-lg shadow-lg">
+      <h2 className="text-2xl font-bold mb-4">Monitoreo de Gnosis</h2>
+      <p>Este es un lugar donde se puede monitorear la salud y el estado del sistema.</p>
+    </div>
+  );
+};
+
+export default MonitoreoGnosis;
+```
+Estos componentes principales están implementados con Tailwind y se pueden personalizar de acuerdo a las necesidades específicas de HECTRON.
