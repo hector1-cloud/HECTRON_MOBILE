@@ -10,7 +10,7 @@ const SetupAbada = () => {
   };
 
   const finalizarConfiguracion = () => {
-    console.log("🦾 [DATOS_CAPTURADOS]:", userData);
+    console.log("🦾 [DATOS_CAPTURADOS_AUTONOMOS]:", userData);
     alert(`ACCESO_CONCEDIDO: ${userData.nombre}`);
   };
 
