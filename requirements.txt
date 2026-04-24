@@ -1,1 +1,8 @@
 flet==0.21.2
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Toggler from './components/Toggler';
+import Dashboard from './screens/Dashboard';
+import Login from './screens/Login';
+import Reportes from './screens/Reportes';
+import MonitoreoGnosis from './screens/MonitoreoGnosis';
