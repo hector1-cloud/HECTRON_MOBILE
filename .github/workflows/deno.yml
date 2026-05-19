@@ -67,7 +67,7 @@ function HectronApp() {
             </button>
           </div>
         </div>
-      ) : (
+        (
         <Login onLogin={handleLogin} />
       )}
       {logged && (
